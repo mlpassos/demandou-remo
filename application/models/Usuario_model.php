@@ -92,6 +92,13 @@ class Usuario_model extends CI_Model {
                 $query = $this->db->get();
                 return $query->result_array();
         }
+
+        public function listarSetores() {
+                $this->db->from('usuario_setor');
+                $query = $this->db->get();
+                return $query->result_array();
+        }
+
         public function listarAux()
         {
                 $this->db->select('codigo, nome, sobrenome, arquivo_avatar');

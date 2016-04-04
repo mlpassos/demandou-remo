@@ -48,44 +48,24 @@ class Projeto_model extends CI_Model {
                   // atribuir usuários
                   $lider =  $this->input->post('lider');
                   $participantes = $this->input->post('participantes');
-                  // Líder
-                  // $obj = array(
-                  //       "codigo_usuario" => $lider,
-                  //       "codigo_projeto" => $inserido,
-                  //       "codigo_papel" => 1
-                  // ); 
-                  // $this->db->insert('usuario_projeto', $obj);
+                 
+                  // vai origem
                   
-                  // se é o neto
-                  if ($lider == 6) {
-                      $obj = array(
-                          "codigo_usuario" => $lider,
-                          "codigo_projeto" => $inserido,
-                          "codigo_papel" => 1
-                      ); 
-                      $this->db->insert('usuario_projeto', $obj);
-                  } else {
-                      $obj = array(
-                        "codigo_usuario" => $lider,
-                        "codigo_projeto" => $inserido,
-                        "codigo_papel" => 1
-                      );
-                      $this->db->insert('usuario_projeto', $obj);
-                      $obj = array(
-                        "codigo_usuario" => 6,
-                        "codigo_projeto" => $inserido,
-                        "codigo_papel" => 1
-                      );
-                      $this->db->insert('usuario_projeto', $obj);
-                  }
+                  $obj = array(
+                    "codigo_projeto" => $inserido,
+                    "codigo_setor" => $lider,
+                    "codigo_papel" => 1
+                  );
+                  $this->db->insert('projeto_setor', $obj);
+                  // vai áreas participantes
 
                   foreach($participantes as $p) {
                     $obj_p = array(
-                        "codigo_usuario" => $p,
                         "codigo_projeto" => $inserido,
+                        "codigo_setor" => $p,
                         "codigo_papel" => 2
                     );
-                    if ($this->db->insert('usuario_projeto', $obj_p)) {
+                    if ($this->db->insert('projeto_setor', $obj_p)) {
                         //echo "Inserido: " . $obj_p['codigo_usuario'] . "<br>";
                     }
                   }

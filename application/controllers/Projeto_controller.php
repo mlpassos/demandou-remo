@@ -296,7 +296,7 @@ class Projeto_controller extends MY_Controller {
 		// CONTEUDO
 		$this->load->model('usuario_model');
 		// excluir líderes do projeto deste query
-		$data_content['usuarios'] = $this->usuario_model->listarAux();
+		$data_content['setores'] = $this->usuario_model->listarSetores();
 
 		// JS
 		$data_footer['js']=array(
