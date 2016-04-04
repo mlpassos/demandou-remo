@@ -1,0 +1,34 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,700,600italic,700italic,800,800italic);
+/* CONTAINER FOR LARGE LOGO IMAGES FIX */
+/*.navbar-brand {
+  padding: 0px; 
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 15px;
+  width: auto;
+}*/
+body {
+  font-family: 'Open Sans';
+  font-weight:300;
+  padding-top: 55px;
+  background-color:#ededed;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+.icone-usuario {
+	color:white;
+}
+.radios {
+	margin-bottom:10px;
+}
+li.select2-selection__choice {
+  background-color:#0092db !important;
+  color:white;
+  border:none !important;
+} 
+span.select2-selection__choice__remove {
+  color:white !important;
+}
