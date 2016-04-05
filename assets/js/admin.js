@@ -7,7 +7,7 @@
         },
         App : function () {
             // admin functions
-            alert('aqui na admin');
+            // alert('aqui na admin');
         }
     }
     $(document).ready(function () {

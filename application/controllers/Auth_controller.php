@@ -38,6 +38,7 @@ class Auth_controller extends MY_Controller {
 					$resultado['sobrenome'] = $usuario['sobrenome'];
 					$resultado['codigo_perfil'] = $usuario['codigo_perfil'];
 					$resultado['codigo_status'] = $usuario['codigo_status'];
+					$resultado['codigo_setor'] = $usuario['codigo_setor'];
 					$resultado['arquivo_avatar'] = $usuario['arquivo_avatar'];
 					array_push($res, $resultado);
 				endforeach;
@@ -49,6 +50,7 @@ class Auth_controller extends MY_Controller {
 		            'sobrenome'=>$resultado['sobrenome'],
 		            'codigo_perfil'=>$resultado['codigo_perfil'],
 		            'codigo_status'=>$resultado['codigo_status'],
+		            'codigo_setor'=>$resultado['codigo_setor'],
 		            'arquivo_avatar'=>$resultado['arquivo_avatar'],
 		            'logado' => true
 		        ));

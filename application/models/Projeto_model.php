@@ -232,9 +232,14 @@ class Projeto_model extends CI_Model {
         }
 
         public function listar() {
-            $this->db->select('*');
-            $this->db->from('usuario');
-            $this->db->join('usuario_funcao', 'usuario_funcao.codigo = usuario.codigo_funcao');
+            // $this->output->enable_profiler(TRUE);
+            $this->db->select('p.codigo as codigo_projeto, p.titulo, p.descricao, p.prioridade, p.data_inicio, p.data_prazo, p.data_fim, p.criado_por, p.codigo_status,
+            ps.codigo_setor, ps.codigo_papel, pap.titulo as papel, us.nome');
+            $this->db->from('projeto as p');
+            $this->db->join('projeto_setor as ps', 'p.codigo = ps.codigo_projeto');
+            $this->db->join('usuario_setor as us', 'ps.codigo_setor = us.codigo');
+            $this->db->join('papel as pap', 'ps.codigo_papel = pap.codigo');
+            $this->db->where('ps.codigo_setor', $this->session->userdata('codigo_setor'));
             $query = $this->db->get();
             return $query->result_array();
         }
@@ -339,7 +344,7 @@ class Projeto_model extends CI_Model {
                 $query = $this->db->get();
                 return $query->result_array();
         }
-        public function verPorCodigo($codigo_projeto) {
+        public function ver($codigo_projeto) {
                 $this->db->from('projeto');
                 // $this->db->join('usuario_projeto', 'projeto.codigo=usuario_projeto.codigo_projeto');
                 // $this->db->join('usuario', 'usuario_projeto.codigo_usuario=usuario.codigo');

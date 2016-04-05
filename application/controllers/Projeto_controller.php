@@ -36,21 +36,6 @@ class Projeto_controller extends MY_Controller {
 					"name" => "Projetos",
 					"link" => base_url() . 'projetos',
 					"class" => "active"
-				),
-					array(
-					"name" => "Tarefas",
-					"link" => base_url() . 'tarefas',
-					"class" => ""
-				),
-					array(
-					"name" => "Usuários",
-					"link" => base_url() . 'usuarios',
-					"class" => ""
-				),
-					array(
-					"name" => "Relatórios",
-					"link" => base_url() . 'relatorios',
-					"class" => ""
 				)
 			);
     } else {
@@ -59,16 +44,6 @@ class Projeto_controller extends MY_Controller {
 					"name" => "Projetos",
 					"link" => base_url() . 'projetos',
 					"class" => "active"
-				),
-				array(
-				"name" => "Tarefas",
-				"link" => base_url() . 'tarefas',
-				"class" => ""
-				),
-				array(
-					"name" => "Relatórios",
-					"link" => base_url() . 'relatorios',
-					"class" => ""
 				)
 			);
 		}
@@ -212,11 +187,7 @@ class Projeto_controller extends MY_Controller {
 	public function index()	{
 		if( $this->session->userdata('logado') ) {
 			$this->load->model('projeto_model');
-        	$conteudo['projetos'] = $this->projeto_model->listarPorUsuario($this->session->userdata('codigo_usuario'));
-        	$conteudo['projetos_usuarios'] = $this->projeto_model->listarParticipantesGerais();
-        	$this->load->model('tarefa_model');
-        	// envia tarefas por projeto, para os líderes, exibe todas as tarefas do usuário
-        	$conteudo['tarefas_projeto'] = $this->tarefa_model->listar();
+        	$conteudo['projetos'] = $this->projeto_model->listar();
     	} 
 		// META
 		$this->header['meta'] = array(
@@ -244,7 +215,6 @@ class Projeto_controller extends MY_Controller {
 		); 
 		// JS
 		$data_footer['js']=array(
-			// array('file' => 'http://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js'), 
 			array('file' => 'http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js'),
 			array('file' =>  base_url() . 'assets/js/isotopeSearchFilter.jquery.js'),
 			array('file' => 'http://cdn.tinymce.com/4/tinymce.min.js'),
@@ -257,17 +227,57 @@ class Projeto_controller extends MY_Controller {
 			// array('file' =>  base_url() . 'assets/js/jquery-2.1.4.js'),
 			array('file' =>  base_url() . 'assets/js/projetos.js')
 		);
-		if (!$this->input->is_ajax_request()) {
-		  	$this->load->view('header_view',$this->header);
-			$this->load->view('admin/projetos/content_view', $conteudo);
-			$this->load->view('footer_view',$data_footer);	
-		} else {
-			$this->load->view('admin/projetos/content_view', $conteudo);	
-		}
+		
+		$this->load->view('header_view',$this->header);
+		$this->load->view('admin/projetos/content_view', $conteudo);
+		$this->load->view('footer_view',$data_footer);	
+		
 		// $this->load->view('header_view',$this->header);
 		// $this->load->view('admin/projetos/content_view', $conteudo);
 		// $this->load->view('footer_view',$data_footer);	
 	}
+
+	public function ver($codigo_projeto)	{
+		if( $this->session->userdata('logado') ) {
+			$this->load->model('projeto_model');
+        	$conteudo['projeto'] = $this->projeto_model->ver($codigo_projeto);
+    	} 
+		// META
+		$this->header['meta'] = array(
+			array(
+			"name" => "title",
+			"content" => "Ver Projeto"
+			),
+			array(
+			"name" => "description",
+			"content" => "Projetos"
+			),
+			array(
+			"name" => "keywords",
+			"content" => "admin,demandou,demandas, html5, sistema"
+			)
+		);
+		// CSS
+		$this->header['css']=array(
+			array('file' => 'animate.css'),
+			array('file' => 'select2.min.css'),
+			array('file' => 'estilos-principal.css'),
+			array('file' => 'estilos-verprojeto.css')
+		); 
+		// JS
+		$data_footer['js']=array(
+			array('file' => 'http://cdn.tinymce.com/4/tinymce.min.js'),
+			array('file' => 'http://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js'),
+			// array('file' => 'http://js.pusher.com/3.0/pusher.min.js'),
+			array('file' =>  base_url() . 'assets/js/global.js'),
+			array('file' =>  base_url() . 'assets/js/verprojeto.js')
+		);
+		
+		$this->load->view('header_view',$this->header);
+		$this->load->view('admin/projetos/content_ver', $conteudo);
+		$this->load->view('footer_view',$data_footer);	
+
+	}	
 	
 	public function adicionar() {
 		// META
